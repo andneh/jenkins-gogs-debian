@@ -1,8 +1,8 @@
-postgres/data/*
-!postgres/data/.gitkeep
-
 gogs/data/*
 !gogs/data/.gitkeep
+
+jenkins/data/*
+!jenkins/data/.gitkeep
 
 postgres/data/*
 !postgres/data/.gitkeep

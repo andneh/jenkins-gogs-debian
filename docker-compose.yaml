@@ -1,0 +1,72 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "2343:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - gogs-jenkins-network
+    depends_on:
+      - gogs
+      - jenkins
+
+  gogs:
+    image: gogs/gogs:latest
+    container_name: gogs
+    ports:
+      - "3000:3000"
+      - "22221:22"  # Git SSH port
+    volumes:
+      - ./gogs/data:/data
+    environment:
+      - GOGS_CUSTOM=/data/gogs
+    networks:
+      - gogs-jenkins-network
+
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./jenkins/data:/var/jenkins_home
+    networks:
+      - gogs-jenkins-network
+    depends_on:
+      - gogs
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    ports:
+      - "22222:5432"
+    environment:
+      POSTGRES_USER: your_username
+      POSTGRES_PASSWORD: your_password
+      POSTGRES_DB: your_database_name
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+    networks:
+      - gogs-jenkins-network
+
+  testing:
+      image: debian:latest
+      container_name: testing
+      ports:
+      - "22223:22"
+      volumes:
+        - ./testing:/app  # Mount a volume for your testing code/scripts
+      networks:
+        - gogs-jenkins-network
+      depends_on:
+        - postgres
+      command: tail -f /dev/null  # Keeps the container running for testing purposes
+
+
+
+
+networks:
+  gogs-jenkins-network:
