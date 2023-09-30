@@ -1,11 +1,2 @@
-gogs/data/*
-!gogs/data/.gitkeep
-
-jenkins/data/*
-!jenkins/data/.gitkeep
-
-postgres/data/*
-!postgres/.gitkeep
-
-testing/*
-!testing/.gitkeep
+data/*/*
+!data/*/.gitkeep
