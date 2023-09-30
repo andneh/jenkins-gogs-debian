@@ -1,4 +1,4 @@
-# ci-cd
+# CI/CD
 Docker (gogs + jenkins)
 
 ## Architecture
