@@ -5,7 +5,7 @@ jenkins/data/*
 !jenkins/data/.gitkeep
 
 postgres/data/*
-!postgres/data/.gitkeep
+!postgres/.gitkeep
 
 testing/*
 !testing/.gitkeep

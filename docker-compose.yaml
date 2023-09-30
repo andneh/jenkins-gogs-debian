@@ -17,8 +17,8 @@ services:
     image: gogs/gogs:latest
     container_name: gogs
     ports:
-      - "3000:3000"
-      - "22221:22"  # Git SSH port
+      - "13000:3000"
+      - "122:22"  # Git SSH port
     volumes:
       - ./gogs/data:/data
     environment:
@@ -30,7 +30,9 @@ services:
     image: jenkins/jenkins:lts
     container_name: jenkins
     ports:
-      - "8080:8080"
+      - "18080:8080"
+    environment:
+      - JENKINS_OPTS="--prefix=/jenkins"
     volumes:
       - ./jenkins/data:/var/jenkins_home
     networks:
@@ -42,11 +44,11 @@ services:
     image: postgres:latest
     container_name: postgres
     ports:
-      - "22222:5432"
+      - "15432:5432"
     environment:
       POSTGRES_USER: your_username
       POSTGRES_PASSWORD: your_password
-      POSTGRES_DB: your_database_name
+      POSTGRES_DB: your_database
     volumes:
       - ./postgres/data:/var/lib/postgresql/data
     networks:
@@ -56,7 +58,7 @@ services:
       image: debian:latest
       container_name: testing
       ports:
-      - "22223:22"
+      - "123:22"
       volumes:
         - ./testing:/app  # Mount a volume for your testing code/scripts
       networks:
