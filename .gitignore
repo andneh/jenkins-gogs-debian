@@ -1,0 +1,11 @@
+postgres/data/*
+!postgres/data/.gitkeep
+
+gogs/data/*
+!gogs/data/.gitkeep
+
+postgres/data/*
+!postgres/data/.gitkeep
+
+testing/*
+!testing/.gitkeep
