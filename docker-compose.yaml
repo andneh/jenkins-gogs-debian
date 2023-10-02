@@ -21,6 +21,7 @@ services:
       - "122:22"  # Git SSH port
     volumes:
       - ./data/gogs:/data
+    envfile
     environment:
       - GOGS_CUSTOM=/data/gogs
     networks:
