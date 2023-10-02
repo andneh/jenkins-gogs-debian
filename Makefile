@@ -1,5 +1,13 @@
+DOCKER = docker-compose
+
+all: $(up)
+
+data:
+	mkdir -p ./data/{postgres, gogs, jenkins,  testing}
+
+
 up:
-	docker-compose up -d
+	 
 
 down:
 	docker-compose down
