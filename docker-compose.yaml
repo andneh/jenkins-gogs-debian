@@ -55,11 +55,13 @@ services:
     networks:
       - gogs-jenkins-network
 
-  testing:
+  ssh-agent:
       image: debian:latest
-      container_name: testing
+      container_name: ssh-agent
       ports:
       - "123:22"
+      working_dir: /app
+      
       volumes:
         - ./data/testing:/app  # Mount a volume for your testing code/scripts
       networks:
