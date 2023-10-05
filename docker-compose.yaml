@@ -32,7 +32,10 @@ services:
     container_name: jenkins
     ports:
       - "18080:8080"
+    # env_file:
+      # - cargo.env
     environment:
+      # - PATH="/root/.cargo/bin:$PATH"
       - JENKINS_OPTS="--prefix=/jenkins"
     volumes:
       - ./data/jenkins:/var/jenkins_home
@@ -61,7 +64,7 @@ services:
       ports:
       - "123:22"
       working_dir: /app
-      
+
       volumes:
         - ./data/testing:/app  # Mount a volume for your testing code/scripts
       networks:

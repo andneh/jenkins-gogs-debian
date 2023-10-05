@@ -26,6 +26,10 @@ down:
 	$(DOCKER) down
 
 
+shell:
+	docker exec -it -u root jenkins /bin/bash
+
+
 # Clean up the generated data directory and .env files
 clean:
 	@rm -rf $(DATA_DIR)
