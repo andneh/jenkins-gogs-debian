@@ -1,2 +1,10 @@
+# Ignore ENV files
+envs/*
+!envs/.gitkeep
+*.env
+.env
+
+# Ignore Docker conteiners folders
 data/*/*
 !data/*/.gitkeep
+!data/nginx/nginx.conf
