@@ -21,9 +21,10 @@ services:
       - "122:22"  # Git SSH port
     volumes:
       - ./data/gogs:/data
-    # envfile
-    environment:
-      - GOGS_CUSTOM=/data/gogs
+    env_file:
+      - envs/gogs.env
+    # environment:
+    #   - GOGS_CUSTOM=/data/gogs
     networks:
       - gogs-jenkins-network
 
@@ -32,11 +33,11 @@ services:
     container_name: jenkins
     ports:
       - "18080:8080"
-    # env_file:
-      # - cargo.env
-    environment:
+    env_file:
+      - envs/jenkins.env
+    # environment:
       # - PATH="/root/.cargo/bin:$PATH"
-      - JENKINS_OPTS="--prefix=/jenkins"
+      # - JENKINS_OPTS="--prefix=/jenkins"
     volumes:
       - ./data/jenkins:/var/jenkins_home
     networks:
@@ -49,10 +50,12 @@ services:
     container_name: postgres
     ports:
       - "15432:5432"
-    environment:
-      POSTGRES_USER: your_username
-      POSTGRES_PASSWORD: your_password
-      POSTGRES_DB: your_database
+    env_file:
+      - envs/postgres.env
+    # environment:
+    #   POSTGRES_USER: your_username
+    #   POSTGRES_PASSWORD: your_password
+    #   POSTGRES_DB: your_database
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
     networks:
