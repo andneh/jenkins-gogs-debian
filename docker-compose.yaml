@@ -2,11 +2,11 @@ version: '3'
 services:
   nginx:
     image: nginx:latest
-    container_name: nginx
+    # container_name: nginx
     ports:
       - "2343:80"
     volumes:
-      - ./data/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./data/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     networks:
       - gogs-jenkins-network
     depends_on:
@@ -77,7 +77,8 @@ services:
       command: tail -f /dev/null  # Keeps the container running for testing purposes
 
 
-
+# volumes:
+  
 
 networks:
   gogs-jenkins-network:
