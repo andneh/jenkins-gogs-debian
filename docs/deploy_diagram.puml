@@ -1,24 +1,28 @@
 @startuml
 
-node pc as "External"{
+node pc as "Client"{
 
 }
 
 node dc as "Docker-compose" {
-    node nginx_node as "NGIN" {
-        agent nginx as "NGINX"
+
+    node psql_node as "Postgress" {
+        database psql as "postgress"
     }
+
     node gogs_node as "Gogs" {
-        agent gogs as "Gogs"
+        agent gogs as "gogs"
     }
     node jenkins_node as "Jenkins" {
         agent jenkins as "jenkins"
     }
-    node psql_node as "Postgress" {
-        database psql as "Postgress"
+    
+    node nginx_node as "NGINX" {
+        agent nginx as "nginx"
     }
+
     node debian_node as "Debian"{
-        agent ssh as "OpenSSH"
+        agent ssh as "sshd"
     }
 
     gogs -(0- psql : "psql"
