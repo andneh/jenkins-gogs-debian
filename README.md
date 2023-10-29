@@ -1,12 +1,12 @@
 # CI/CD
 Docker (gogs + jenkins)
 
-## Architecture
-![](docs/architecture.dio.svg)
+## Deploy diagram
+![](./docs/deploy_diagram.svg)
 
 ## Links
-- `http://localhost:2343/gogs/`
-- `http://localhost:2343/jenkins/`
+- `https://localhost:8443/jenkins/`
+- `https://localhost:8443/gogs/`
 
 
 

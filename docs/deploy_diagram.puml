@@ -1,0 +1,39 @@
+@startuml
+
+node pc as "External"{
+
+}
+
+node dc as "Docker-compose" {
+    node nginx_node as "NGIN" {
+        agent nginx as "NGINX"
+    }
+    node gogs_node as "Gogs" {
+        agent gogs as "Gogs"
+    }
+    node jenkins_node as "Jenkins" {
+        agent jenkins as "jenkins"
+    }
+    node psql_node as "Postgress" {
+        database psql as "Postgress"
+    }
+    node debian_node as "Debian"{
+        agent ssh as "OpenSSH"
+    }
+
+    gogs -(0- psql : "psql"
+
+    jenkins -(0- gogs : "http"
+    jenkins -(0- gogs : "ssh"
+    jenkins -(0 ssh : "ssh"
+
+    nginx -(0- jenkins : "http://jenkins:8080/"
+    nginx -(0- gogs : "http://jenkins:3000/"
+    
+    pc -(0 nginx : "https://localhost:8443/jenkins"
+    pc -(0 nginx : "https://localhost:8443/gogs"
+
+}
+
+
+@enduml
