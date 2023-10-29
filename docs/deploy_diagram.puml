@@ -1,4 +1,4 @@
-@startuml
+@startuml "Deploy diagram"
 
 node pc as "Client"{
 
@@ -31,11 +31,10 @@ node dc as "Docker-compose" {
     jenkins -(0- gogs : "ssh"
     jenkins -(0 ssh : "ssh"
 
-    nginx -(0- jenkins : "http://jenkins:8080/"
-    nginx -(0- gogs : "http://jenkins:3000/"
+    nginx -(0- jenkins : "http"
+    nginx -(0- gogs : "http"
     
-    pc -(0 nginx : "https://localhost:8443/jenkins"
-    pc -(0 nginx : "https://localhost:8443/gogs"
+    pc -(0 nginx : "https"
 
 }
 

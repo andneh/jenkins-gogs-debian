@@ -1,5 +1,6 @@
-# CI/CD
-Docker (gogs + jenkins)
+# CI/CD infrastructure
+
+Docker based infrastructure project for CI/CD development.
 
 ## Deploy diagram
 ![](./docs/deploy_diagram.svg)
