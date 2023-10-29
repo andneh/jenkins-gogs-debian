@@ -4,6 +4,10 @@ SERVICES = postgres gogs jenkins testing
 # Define the base directory for data
 DATA_DIR := ./data
 
+SSL_DIR := $(DATA_DIR)/nginx/ssl
+SSL_CERT := $(SSL_DIR)/ssl.crt
+SSL_KEY := $(SSL_DIR)/ssl.keyout
+
 # tools
 DOCKER = docker-compose
 
@@ -16,10 +20,18 @@ dirs:
 	@$(foreach service,$(SERVICES),mkdir -p $(DATA_DIR)/$(service);)
 
 # Generate empty .env files for each service
-dotenv: $(dirs)
+dotenv: dirs
 	@$(foreach service,$(SERVICES),touch $(DATA_DIR)/$(service).env;)
 
-up: $(dotenv)
+ssl:
+	@if [ -e $(SSL_CERT_FILE) ]; then \
+        echo "SSL exists"; \
+    else \
+        mkdir -p $(SSL_DIR);\
+		openssl req -new -newkey rsa:4096 -days 365 -nodes -x509  -keyout $(SSL_KEY) -out $(SSL_CERT); \
+    fi
+
+up: dotenv ssl
 	$(DOCKER) up -d
 
 down:
