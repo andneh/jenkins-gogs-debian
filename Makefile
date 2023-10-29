@@ -5,7 +5,7 @@ SERVICES = postgres gogs jenkins testing
 DATA_DIR := ./data
 ENV_DIR := ./envs
 CONF_DIR := ./conf
-SSL_DIR := $(CONF_DIR)/ssl
+SSL_DIR := $(CONF_DIR)/nginx/ssl
 
 
 # files

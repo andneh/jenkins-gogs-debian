@@ -5,8 +5,8 @@ Docker (gogs + jenkins)
 ![](./docs/deploy_diagram.svg)
 
 ## Links
-- `https://localhost:8443/jenkins/`
-- `https://localhost:8443/gogs/`
+- `https://gogs.localhost:8443/`
+- `https://jenkins.localhost:8443/`
 
 
 
