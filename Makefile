@@ -1,30 +1,35 @@
-# Define the list of services
+# statefull services
 SERVICES = postgres gogs jenkins testing
 
-# Define the base directory for data
+# dirs
 DATA_DIR := ./data
+ENV_DIR := ./envs
+CONF_DIR := ./conf
+SSL_DIR := $(CONF_DIR)/ssl
 
-SSL_DIR := $(DATA_DIR)/nginx/ssl
+
+# files
 SSL_CERT := $(SSL_DIR)/ssl.crt
 SSL_KEY := $(SSL_DIR)/ssl.pem
 
 # tools
-DOCKER = docker-compose
+D = docker
+DC = docker-compose
 
-# Run `make all` to perform both prepare and generate-env-files
-all: build
 
-# Create the data directory and subdirectories for services
+all: dirs envs ssl build
+
 dirs:
 	@mkdir -p $(DATA_DIR)
+	@mkdir -p $(ENV_DIR)
 	@mkdir -p $(SSL_DIR)
 	@$(foreach service,$(SERVICES),mkdir -p $(DATA_DIR)/$(service);)
 
-# Generate empty .env files for each service
-dotenv: dirs
-	@$(foreach service,$(SERVICES),touch $(DATA_DIR)/$(service).env;)
+envs: dirs
+	@$(foreach service,$(SERVICES),touch $(ENV_DIR)/$(service).env;)
 
-ssl:
+
+ssl: dirs
 	@if [ -e $(SSL_CERT) ]; then \
         echo "SSL exists"; \
     else \
@@ -32,21 +37,20 @@ ssl:
 		openssl req -new -newkey rsa:4096 -days 365 -nodes -x509  -keyout $(SSL_KEY) -out $(SSL_CERT); \
     fi
 
-build: dotenv ssl
-	$(DOCKER) up -d --build
+build: envs ssl
+	$(DC) up -d --build
 
-up: dotenv ssl
-	$(DOCKER) up -d
+up: envs ssl
+	$(DC) up -d
 
 down:
-	$(DOCKER) down
-
+	$(DC) down
 
 ps:
-	docker ps -a
+	$(D) ps -a
 
 rjshell:
-	docker exec -it -u root jenkins /bin/bash
+	$(D) exec -it -u root jenkins /bin/bash
 
 
 # Clean up the generated data directory and .env files
